@@ -1,0 +1,73 @@
+services:
+  db:
+    image: mysql:latest
+    container_name: pdns-db
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_DATABASE=powerdnsadmin
+    - MYSQL_USER=pdns
+    - MYSQL_PASSWORD=mypdns
+    restart: unless-stopped
+    ports:
+    - "3306:3306"
+    volumes:
+    - ./db:/var/lib/mysql
+    networks:
+    - pdns-network
+  
+  pdns:
+    image: powerdns/pdns-auth-49
+    container_name: pdns-authoritative
+    hostname: pdns
+    restart: unless-stopped
+    depends_on:
+    - db
+    ports:
+    - "5301:53/udp"
+    - "5301:53/tcp"
+    - "8081:8081"
+    volumes:
+      - ./pdns.conf:/etc/powerdns/pdns.conf:ro
+    networks:
+    - pdns-network
+
+  pdns-admin:
+    image: powerdnsadmin/pda-legacy:latest
+    container_name: pdns-admin
+    ports:
+    - "9191:80"
+    depends_on:
+    - db
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    environment:
+    - SQLALCHEMY_DATABASE_URI=mysql://pdns:mypdns@db/powerdnsadmin
+    - GUNICORN_TIMEOUT=60
+    - GUNICORN_WORKERS=2
+    - PDNS_API_URL=http://pdns:8081
+    - PDNS_API_KEY=secret
+    - PDNS_VERSION=4.9
+    networks:
+    - pdns-network
+
+  pdns-recursor:
+    image: powerdns/pdns-recursor-53:latest
+    container_name: pdns-recursor
+    hostname: pdns-recursor
+    ports:
+    - "10053:53/udp"
+    - "10053:53/tcp"
+    depends_on:
+    - pdns
+    volumes:
+    - ./recursor.conf:/etc/powerdns/recursor.conf
+    restart: unless-stopped
+    networks:
+    - pdns-network
+
+networks:
+  pdns-network:
+    driver: bridge
