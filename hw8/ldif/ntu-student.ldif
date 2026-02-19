@@ -1,0 +1,18 @@
+dn: uid=ntu001,ou=people,dc=nasa,dc=csie,dc=ntu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: ntuStudent
+uid: ntu001
+cn: NTU Student Example
+sn: Student
+givenName: NTU
+mail: ntu001@csie.ntu.edu.tw
+uidNumber: 20003
+gidNumber: 10002
+homeDirectory: /home/ntu001
+loginShell: /bin/bash
+userPassword: {SSHA}Q+ujAZLFcGaWiRSEB6Jut7NSrbetOXhF
+#userPassword: ntu
+studentEntryMethod: exam
+studentAdvisor: hsinmu

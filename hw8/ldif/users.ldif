@@ -1,0 +1,27 @@
+dn: uid=ta001,ou=people,dc=nasa,dc=csie,dc=ntu
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: TA User
+uid: ta001
+uidNumber: 20001
+gidNumber: 10001
+homeDirectory: /home/ta001
+loginShell: /bin/bash
+userPassword: {SSHA}ygDTiiR8LRY24EoiOPSJdtN0MV1rUxDK
+# userpassword: ta
+
+dn: uid=student001,ou=people,dc=nasa,dc=csie,dc=ntu
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: Student User
+uid: student001
+uidNumber: 20002
+gidNumber: 10002
+homeDirectory: /home/student001
+loginShell: /bin/bash
+userPassword: {SSHA}YAw2oQL81OhdOGS6Raokj/ZvaxE9U/c+
+# userpassword: student

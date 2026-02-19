@@ -1,0 +1,11 @@
+dn: ou=SUDOers,dc=nasa,dc=csie,dc=ntu
+objectClass: organizationalUnit
+ou: SUDOers
+
+dn: cn=%ta,ou=SUDOers,dc=nasa,dc=csie,dc=ntu
+objectClass: top
+objectClass: sudoRole
+cn: %ta
+sudoUser: %ta
+sudoHost: ALL
+sudoCommand: ALL

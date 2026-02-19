@@ -1,0 +1,30 @@
+dn: cn=ntu,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: ntu
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.1 
+  NAME 'studentEntryMethod' 
+  DESC 'Student entry method to NTU'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.2
+  NAME 'studentAdvisor'
+  DESC 'Student advisor name'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE )
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.3
+  NAME 'studentClub'
+  DESC 'Student club membership'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+olcObjectClasses: ( 1.3.6.1.4.1.99999.1.2.1
+  NAME 'ntuStudent'
+  DESC 'NTU Student'
+  SUP top
+  AUXILIARY
+  MUST ( studentEntryMethod $ studentAdvisor )
+  MAY ( studentClub ) )
